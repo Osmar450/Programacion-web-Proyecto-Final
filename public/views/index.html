@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SnackHub</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+   :root {
+  --red: #e60012;
+  --orange: #ff7300;
+  --orange-light: #ff9933;
+  --white: #ffffff;
+  --light-bg: #fff7f0;
+  --ticket-bg: #fefefe;
+  --text-dark: #333;
+  --border-light: #e0e0e0;
+}
+
+body {
+  background-color: var(--light-bg);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Navbar */
+.navbar {
+  background: linear-gradient(to right, var(--red), var(--orange));
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: var(--white);
+  font-family: 'Segoe UI', cursive;
+}
+
+.nav-link, .navbar-text {
+  color: var(--white) !important;
+}
+
+.nav-link:hover {
+  color: #fff4e6 !important;
+}
+
+#inputSearch {
+  border-radius: 20px;
+  border: 2px solid var(--orange);
+  padding: 0.4rem 1rem;
+  transition: all 0.3s ease;
+}
+
+#inputSearch:focus {
+  border-color: var(--orange-light);
+  box-shadow: 0 0 0 0.2rem rgba(255, 147, 51, 0.25);
+}
+
+#inputSearch::placeholder {
+  color: var(--orange);
+}
+
+/* Botones principales */
+.btn-danger, .bg-danger {
+  background-color: var(--red) !important;
+  border-color: var(--red) !important;
+}
+
+.btn-success {
+  background-color: var(--orange-light) !important;
+  border: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: var(--orange) !important;
+  transform: translateY(-1px);
+}
+
+/* Botones Add to Cart - naranja claro */
+.btn-primary {
+  background-color: var(--orange-light) !important;
+  border-color: var(--orange-light) !important;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--orange) !important;
+  border-color: var(--orange) !important;
+  transform: translateY(-1px);
+}
+
+/* Cards de productos */
+.card {
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background-color: var(--white);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(255, 115, 0, 0.15);
+  border-color: var(--orange-light);
+}
+
+.card-img-top {
+  border-radius: 12px 12px 0 0;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+/* Resumen de pedido - estilo ticket */
+#summarySection {
+  background: var(--ticket-bg);
+  border: 2px dashed var(--orange-light);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  font-family: 'Courier New', monospace;
+  position: relative;
+  min-height: 600px;
+  padding: 20px !important;
+}
+
+#summarySection::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--orange-light) 0,
+    var(--orange-light) 5px,
+    transparent 5px,
+    transparent 10px
+  );
+}
+
+#summarySection::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--orange-light) 0,
+    var(--orange-light) 5px,
+    transparent 5px,
+    transparent 10px
+  );
+}
+
+#summarySection h5 {
+  color: var(--orange);
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px dashed var(--orange-light);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+#summarySection p {
+  color: var(--text-dark);
+  margin-bottom: 12px;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  line-height: 1.4;
+}
+
+#summarySection strong {
+  color: var(--orange);
+  font-weight: bold;
+}
+
+/* Badge */
+.badge {
+  background-color: var(--orange-light) !important;
+}
+
+/* Textos generales */
+h5, p {
+  color: var(--text-dark);
+}
+
+strong {
+  color: var(--orange);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #summarySection {
+    width: 95% !important;
+    max-width: none !important;
+    left: 2.5%;
+    right: 2.5%;
+  }
+  
+  .card:hover {
+    transform: none;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg shadow">
+    <div class="container-fluid px-3">
+      <a class="navbar-brand" id="index" href="#">SnackHub</a>
+
+      <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <form id="formSearch" class="d-flex ms-auto my-2 my-lg-0">
+          <input id="inputSearch" class="form-control me-2" type="search" placeholder="Buscar snacks..." aria-label="Buscar" />
+        </form>
+
+        <ul class="navbar-nav align-items-center ms-auto mt-2 mt-lg-0">
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="#">Sobre Nosotros</a>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link" href="#" id="getOrders">Pedidos</a>
+          </li>
+          <li class="nav-item mx-2">
+            <button class="nav-link position-relative btn btn-link p-0" id="cartBtn">
+              <i class="bi bi-cart fs-5 text-white"></i>
+              <span id="cart-articles" class="position-absolute top-0 start-100 translate-middle badge rounded-pill">
+                <span class="visually-hidden">artículos en el carrito</span>
+              </span>
+            </button>
+          </li>
+          <li class="nav-item mx-2">
+            <a class="nav-link text-white" id="logout" href="./login.html">Cerrar sesión</a>
+          </li>
+          <li class="nav-item ms-3">
+            <span class="navbar-text fw-semibold">
+              Bienvenido, <span id="username">Anonimo</span>
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <div class="container mt-4 px-4">
+    <h2 id="main-container-message" hidden class="text-center text-secondary mb-4">Agrega snacks a tu carrito</h2>
+    <div id="order-container"></div>
+    <div id="product-container" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4"></div>
+  </div>
+
+  <!-- Summary Section -->
+  <div id="summarySection" hidden class="position-fixed bottom-0 end-0 shadow p-4" style="width: 100%; max-width: 300px; z-index: 1050;">
+    <h5 class="mb-3">Resumen de tu pedido</h5>
+    <p class="mb-1">Artículos: <span id="total-items">0</span></p>
+    <p class="mb-3">Total: <strong>$<span id="total-amount">0.00</span></strong></p>
+    <button class="btn btn-success w-100" id="accept-btn">Finalizar compra</button>
+  </div>
+
+  <script type="module" src="../scripts/events/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
